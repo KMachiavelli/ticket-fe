@@ -1,0 +1,181 @@
+.nav {
+  position: sticky;
+  top: 0;
+  background: $black;
+  width: 100%;
+  color: $white;
+  outline: solid $blue $spacing * 0.5;
+  z-index: 1001;
+  @include spaced-between-flex();
+
+  &__logo {
+    display: inline;
+    padding: 0 $spacing 0 $spacing;
+    background: none;
+    &:hover {
+      background: none;
+      & svg {
+        & path {
+          fill: $red;
+        }
+      }
+    }
+    & svg {
+      max-width: 50px;
+      max-height: 50px;
+      & path {
+        fill: $blue;
+      }
+    }
+  }
+
+  &__ul {
+    @include centered-flex();
+    gap: $spacing;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__li {
+    list-style: none;
+    padding: $spacing;
+    border-radius: $spacing * 0.5;
+    color: $white;
+
+    &:hover {
+      background: $black-lighter;
+      cursor: pointer;
+    }
+  }
+
+  &__cart-user-wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__button {
+    border-radius: $spacing $spacing 0 0;
+    svg {
+      max-height: 25px;
+      max-width: 25px;
+    }
+
+    &--contrast {
+      @extend .nav__button;
+      border-radius: 0;
+      path {
+        stroke: $white;
+      }
+      &:hover {
+        path {
+          stroke: $red;
+        }
+      }
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    background: $blue;
+    color: black;
+    transform-origin: top;
+    padding: 0 0 0 $spacing * 2;
+    border-radius: $spacing * 2 0 $spacing $spacing * 2;
+    top: 200%;
+    right: 0;
+
+    h2 {
+      white-space: nowrap;
+      padding: 0 $spacing;
+      border-bottom: solid $black;
+      width: fit-content;
+      text-align: center;
+      margin: $spacing auto;
+    }
+
+    &--shown {
+      @extend .nav__dropdown;
+      //   transform: scaleY(1);
+      display: block;
+    }
+
+    &--hidden {
+      @extend .nav__dropdown;
+      //   transform: scaleY(0);
+      display: none;
+    }
+  }
+
+  &__cart-wrapper {
+    position: relative;
+  }
+
+  &__cart-display {
+    display: flex;
+    flex-direction: column;
+    row-gap: $spacing;
+    background: $black;
+    color: $white;
+    border-radius: $spacing;
+    padding: $spacing;
+
+    svg {
+      height: 16px;
+      width: 16px;
+      fill: $white;
+      path {
+        stroke: $white;
+      }
+    }
+
+    p {
+      margin: 0;
+      white-space: nowrap;
+      display: inline;
+    }
+  }
+
+  &__cart-item {
+    @include centered-flex();
+    flex-wrap: nowrap;
+    gap: $spacing;
+    font-size: map-get($font-size, sm-body);
+  }
+
+  &__trash-button {
+    padding: 0;
+  }
+
+  &__chimney {
+    position: absolute;
+    background: $blue;
+    bottom: 0;
+    left: 0;
+    height: 200%;
+    width: 100%;
+    transform: translate(0, 100%);
+    transform-origin: top;
+
+    &--shown {
+      @extend .nav__chimney;
+      //   transform: scaleY(1);
+      display: block;
+    }
+
+    &--hidden {
+      @extend .nav__chimney;
+      //   transform: scaleY(0);
+      display: none;
+    }
+  }
+
+  &__summary {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    hr {
+      margin: 0;
+      width: 50%;
+    }
+  }
+}

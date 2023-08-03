@@ -1,0 +1,31 @@
+@mixin button($background, $color, $hover-color) {
+  background: $background;
+  color: $color;
+  border-radius: $spacing;
+  border: none;
+  padding: $spacing;
+  font-size: map-get($font-size, body);
+  transition: ease-in-out 0.2s;
+  font-weight: 600;
+
+  &:hover {
+    background: $hover-color;
+    cursor: pointer;
+  }
+}
+
+.btn--primary {
+  @include button($blue, $black, $blue-darker);
+}
+
+.btn--secondary {
+  @include button($red, $white, $red-darker);
+}
+
+.btn--info {
+  @include button($red, $white, $blue-ticket);
+}
+
+.btn--content {
+  @include button(none, $white, none);
+}

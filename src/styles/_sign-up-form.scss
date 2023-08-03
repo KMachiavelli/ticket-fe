@@ -1,0 +1,9 @@
+.sign-up-form {
+  @extend .log-in-form;
+  background: $red;
+
+  &__select {
+    background: $black;
+    color: $white;
+  }
+}

@@ -1,0 +1,24 @@
+.double-btn {
+  @include centered-flex();
+  border: $white solid 1px;
+  border-radius: $spacing * 0.8;
+  button {
+    background: none;
+    padding: $spacing * 0.4 $spacing * 0.3 $spacing * 0.2 $spacing * 0.3;
+
+    &:hover {
+      background: $red;
+    }
+  }
+
+  & > :not(:last-child) {
+    border-right: solid 1px $white;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  & > :last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}

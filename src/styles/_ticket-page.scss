@@ -1,0 +1,5 @@
+.ticket-page {
+  display: grid;
+  padding: $spacing * 4;
+  grid-template-columns: 30% auto;
+}

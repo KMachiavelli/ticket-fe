@@ -1,0 +1,81 @@
+//Color
+$black: #2a3847;
+$blue: #4ecdc4;
+$white: #f7fff7;
+$red: #ff6b6b;
+$yellow: #ffe66d;
+
+$blue-ticket: #a0d8ea;
+$red-ticket: #efa39f;
+
+$black-darker: #181b1f;
+$blue-darker: #3bc3ab;
+$white-darker: #e0e6e0;
+$red-darker: #db5151;
+$yellow-darker: #e7cc46;
+
+$black-lighter: #334557;
+$blue-lighter: #67eee5;
+$white-lighter: #fdfdfd;
+$red-lighter: #ff8d8d;
+$yellow-lighter: #fcec9c;
+
+$black-reduced: #2a384765;
+$blue-reduced: #4ecdc58c;
+$white-reduced: #f7fff78e;
+$red-reduced: #ff6b6b85;
+$yellow-reduced: #ffe76d70;
+
+// Spacing
+$spacing: 16px;
+
+// Font
+$font-size: (
+  "h1": 32px,
+  "h2": 24px,
+  "body": 16px,
+  "sm-body": 14px,
+);
+
+$font-family: (
+  "main": unquote("Roboto, Georgia, serif"),
+);
+
+// Body
+$base: (
+  "base-font-sans-serif":
+    unquote("Roboto, 'Helvetica Neue', Helvetica, sans-serif"),
+  "base-font-serif":
+    unquote("'Times New Roman', Times, Baskerville, Georgia, serif"),
+  "secondary-font-serif":
+    unquote("'Playfair Display', Times, Baskerville, Georgia, serif"),
+  "btn-font-sans-serif":
+    unquote("'Hammersmith One', 'Helvetica Neue', Helvetica, sans-serif"),
+  "base-text-color": #fff,
+  "base-background-color": #fff,
+  "base-link-color": #39f,
+  "base-font-size": 12px,
+  "base-line-height": 1.2,
+  "base-font-family": unquote("Arial, 'Helvetica Neue', Helvetica, sans-serif"),
+  "vertical-rhythm": "(map-get($base, base-line-height) * 1em)",
+  "base-min-width": 320px,
+);
+
+// Breakpoints for include media
+$breakpoints: (
+  "phone": 320px,
+  "tablet": 768px,
+  "desktop": 1024px,
+  "widescreen": 1200px,
+);
+
+// Keywords
+$media-expressions: (
+  "screen": "screen",
+  "print": "print",
+  "handheld": "handheld",
+  "landscape": "(orientation: landscape)",
+  "portrait": "(orientation: portrait)",
+  "retina2x": "(-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi)",
+  "retina3x": "(-webkit-min-device-pixel-ratio: 2.5), (min-resolution: 240dpi)",
+);

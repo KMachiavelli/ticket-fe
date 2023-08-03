@@ -1,0 +1,62 @@
+.ticket-card {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  color: $white;
+
+  &__description {
+    margin-left: $spacing;
+    padding-left: $spacing;
+  }
+
+  &__img {
+    background: url("/ticket-cinema-red.png");
+    aspect-ratio: 4.2/1;
+    height: 80px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    text-align: center;
+
+    h2 {
+      margin-left: $spacing * 2;
+      color: $black;
+      width: min-content;
+      background: $red-ticket;
+      border: solid $white;
+      padding: 4px;
+      white-space: nowrap;
+    }
+  }
+
+  &__button {
+    padding: $spacing;
+    background: none;
+    svg {
+      stroke: $white;
+      path {
+        stroke: $white;
+      }
+      height: 35px;
+      width: 35px;
+    }
+  }
+
+  &__expanded-options {
+    display: none;
+    flex-direction: row;
+    gap: $spacing;
+  }
+
+  &:hover {
+    & > .ticket-card__img {
+      aspect-ratio: 2.1/1;
+      height: 170px;
+    }
+    & > .ticket-card__description {
+      border: none;
+    }
+    & .ticket-card__expanded-options {
+      display: flex;
+    }
+  }
+}
