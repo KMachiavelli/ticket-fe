@@ -5,17 +5,20 @@ import { PagePaths } from "../../../routing/types";
 import { CartIcon } from "../../../assets/icons/CartIcon";
 import { LogoIcon } from "../../../assets/icons/LogoIcon";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DoubleButton } from "../doubleButton/DoubleButton";
 import { TrashIcon } from "../../../assets/icons/TrashIcon";
 import { useAppDispatch } from "../../../store/hooks";
-import { addItem, removeItem } from "../../../reducers/cart";
-import { TicketI } from "../../../services/ticketService/types";
+import { addItem, fetchDeliveryCost, removeItem } from "../../../reducers/cart";
 
 export const Navbar = () => {
-  const { items } = useSelector<any, any>((state) => state.cart);
+  const { items, deliveryCost } = useSelector<any, any>((state) => state.cart);
   const dispatch = useAppDispatch();
   const [isDropdownCartOpen, setIsDropdownCartOpen] = useState(false);
+
+  useEffect(() => {
+    dispatch(fetchDeliveryCost());
+  }, [isDropdownCartOpen]);
 
   const handleOpenDropdown = () => {
     setIsDropdownCartOpen((isOpen) => !isOpen);
@@ -76,7 +79,8 @@ export const Navbar = () => {
               <div className="nav__summary">
                 <h4>Total</h4>
                 <hr />
-                <h5>{2137}</h5>
+                <h3>{2137} $</h3>
+                <p>delivery {deliveryCost} $</p>
               </div>
             </div>
           </div>

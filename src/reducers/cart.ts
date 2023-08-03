@@ -1,11 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ticketService } from "../services/ticketService/ticket.service";
 import { CartI } from "./types";
+import { ClipLoader } from "react-spinners";
+import { Spinner } from "../components/shared/spinner/Spinner";
+import { SpinnerVariant } from "../components/shared/spinner/types";
 
 const initialState: CartI = {
-  items: [],
-  deliveryCost: 0,
-  total: "0",
+  content: {
+    items: [],
+    total: 0,
+  },
+  delivery: {
+    isLoading: false,
+    cost: 0,
+  },
 };
 
 export const fetchDeliveryCost = createAsyncThunk(
@@ -29,36 +37,57 @@ const cartReducer = createSlice({
   reducers: {
     addItem: (state, { payload }) => {
       // Classic approach with use of return
-      const foundItemIndex = state.items.findIndex(
+      const foundItemIndex = state.content.items.findIndex(
         (item) => item.title === payload.title
       );
       if (foundItemIndex >= 0) {
-        const updatedItems = [...state.items];
+        const updatedItems = [...state.content.items];
         updatedItems[foundItemIndex] = {
           ...updatedItems[foundItemIndex],
           stackCount: updatedItems[foundItemIndex].stackCount + 1,
         };
-        return { ...state, items: updatedItems };
+        return { ...state, content: { ...state.content, items: updatedItems } };
       } else {
-        return { ...state, items: [...state.items, payload] };
+        return {
+          ...state,
+          content: {
+            ...state.content,
+            items: [...state.content.items, payload],
+          },
+        };
       }
     },
 
     removeItem: (state, action) => {
       // By immer lib with use of mutating
-      const foundItem = state.items.find(
+      const foundItem = state.content.items.find(
         (item) => item.title === action.payload.title
       );
       if (foundItem?.stackCount! > 1) {
         foundItem!.stackCount! -= 1;
       } else {
-        state.items = state.items.filter(
+        state.content.items = state.content.items.filter(
           (item) => item.title !== action.payload.title
         );
       }
     },
 
-    removeStack: (state, action) => {},
+    removeStack: (state, action) => {
+      console.log(state, action);
+    },
+  },
+
+  extraReducers: (builder) => {
+    builder.addCase(fetchDeliveryCost.fulfilled, (state, action) => {
+      state.delivery.cost = action.payload.deliveryCost;
+      state.delivery.isLoading = false;
+    });
+    builder.addCase(fetchDeliveryCost.pending, (state) => {
+      state.delivery.isLoading = true;
+    });
+    builder.addCase(fetchDeliveryCost.rejected, (state) => {
+      // toast
+    });
   },
 });
 

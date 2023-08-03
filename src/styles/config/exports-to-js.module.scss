@@ -1,0 +1,36 @@
+@import "./variables";
+
+// @each $color, $value in $theme-colours {
+//   :export {
+//     $color: $value;
+//   }
+// }
+
+:export {
+  black: $black;
+  blue: $blue;
+  white: $white;
+  red: $red;
+  yellow: $yellow;
+
+  blue-ticket: $blue-ticket;
+  red-ticket: $red-ticket;
+
+  black-darker: $black-darker;
+  blue-darker: $blue-darker;
+  white-darker: $white-darker;
+  red-darker: $red-darker;
+  yellow-darker: $yellow-darker;
+
+  black-lighter: $black-lighter;
+  blue-lighter: $blue-lighter;
+  white-lighter: $white-lighter;
+  red-lighter: $red-lighter;
+  yellow-lighter: $yellow-lighter;
+
+  black-reduced: $black-reduced;
+  blue-reduced: $blue-reduced;
+  white-reduced: $white-reduced;
+  red-reduced: $red-reduced;
+  yellow-reduced: $yellow-reduced;
+}
