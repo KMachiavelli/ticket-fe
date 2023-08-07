@@ -1,5 +1,5 @@
-import { getFromLocalStorage } from "../../utils/storage/localStorageHelpers";
-import { StorageKeys } from "../../utils/storage/types";
+import { getFromLocalStorage } from "../utils/storage/localStorageHelpers";
+import { StorageKeys } from "../utils/storage/types";
 
 const BASE_URL =
   process.env.NODE_ENV === "production"
@@ -12,7 +12,7 @@ export const requestConfig = (configTypeJSON?: boolean): RequestInit => {
     referrerPolicy: "no-referrer",
     headers: {
       Authorization: `Bearer ${
-        getFromLocalStorage(StorageKeys.USER).accessToken
+        getFromLocalStorage(StorageKeys.AUTH).accessToken
       }`,
     },
   };
@@ -24,12 +24,13 @@ export const requestConfig = (configTypeJSON?: boolean): RequestInit => {
 
 export const ENDPOINTS = {
   tickets: {
-    deliveryCost: `${BASE_URL}/ticket/delivery-cost`,
+    root: `${BASE_URL}/ticket`,
+    cart: `${BASE_URL}/ticket/cart`,
   },
   transactions: {},
   user: {
-    login: `${BASE_URL}/user/login`,
-    register: `${BASE_URL}/user/register`,
+    root: `${BASE_URL}/user`,
+    login: `${BASE_URL}/user/authenticate`,
     account: `${BASE_URL}/user/account`,
   },
 };

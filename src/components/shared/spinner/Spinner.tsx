@@ -7,13 +7,27 @@ interface SpinnerI {
   variant: SpinnerVariant;
   children: ReactElement;
   isLoading: boolean;
+  className?: string;
 }
 
-export const Spinner = ({ variant, children, isLoading }: SpinnerI) => {
+export const Spinner = ({
+  variant,
+  children,
+  isLoading,
+  className,
+}: SpinnerI) => {
   const variantMap = new Map([
     [SpinnerVariant.DARK, styles.black],
     [SpinnerVariant.LIGHT, styles.white],
   ]);
 
-  return <>{isLoading ? <ClipLoader color={variant} /> : children}</>;
+  return (
+    <>
+      {isLoading ? (
+        <ClipLoader className={className} color={variantMap.get(variant)} />
+      ) : (
+        children
+      )}
+    </>
+  );
 };

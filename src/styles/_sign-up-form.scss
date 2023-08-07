@@ -2,8 +2,31 @@
   @extend .log-in-form;
   background: $red;
 
+  h2 {
+    color: $white;
+  }
+
+  & input {
+    background: $red-darker;
+    color: $white;
+
+    &::placeholder {
+      color: $white;
+    }
+
+    &:focus {
+      outline: $red-lighter $spacing * 0.75 solid;
+    }
+  }
+
   &__select {
     background: $black;
     color: $white;
   }
+}
+
+.success-view {
+  color: $white;
+  @include centered-absolute();
+  text-align: center;
 }

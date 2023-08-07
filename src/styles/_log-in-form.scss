@@ -14,11 +14,23 @@
   }
 
   & input {
-    background: $black;
-    color: $white;
+    background: $blue-lighter;
+    color: $black-darker;
+    font-weight: bold;
     width: 100%;
     text-align: center;
     border: none;
+    padding: $spacing * 0.5;
+    border-radius: $spacing;
+
+    &::placeholder {
+      font-weight: normal;
+      color: $black-darker;
+    }
+
+    &:focus {
+      outline: $blue-darker $spacing * 0.75 solid;
+    }
   }
 
   &__btn {

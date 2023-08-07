@@ -1,14 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ticketService } from "../services/ticketService/ticket.service";
-import { CartI } from "./types";
-import { ClipLoader } from "react-spinners";
-import { Spinner } from "../components/shared/spinner/Spinner";
-import { SpinnerVariant } from "../components/shared/spinner/types";
+import { CartStateI } from "./types";
+import { CartVerificationRequestTO } from "../services/ticketService/types";
 
-const initialState: CartI = {
+const initialState: CartStateI = {
   content: {
     items: [],
     total: 0,
+    isLoading: false, // applied only for total, since items are stored on client side
   },
   delivery: {
     isLoading: false,
@@ -16,10 +15,13 @@ const initialState: CartI = {
   },
 };
 
-export const fetchDeliveryCost = createAsyncThunk(
-  "cart/fetchDeliveryCost",
-  async () => {
-    return await ticketService.getDeliveryCost();
+export const fetchAddItem = createAsyncThunk(
+  "cart/fetchAddItem",
+  async (addedItemId: number, thunkAPI) => {
+    return await ticketService.patchCart({
+      ...(thunkAPI.getState() as any).cart,
+      addedItemId,
+    });
   }
 );
 
@@ -27,69 +29,56 @@ const cartReducer = createSlice({
   name: "cart",
 
   initialState,
-
-  // IDEA: DODAWANIE DO KOSZYKA JEST ASYNC BO SPRAWDZA CZY WGL MOZNA DODAC - IKONKA LADOWANIA + TOAST JEZELI NIE MA
   // A DODAWANIE DO ULUBIONYCH JEST RIGHT ON OD RAZU NP
 
   // BTW SERWIS BILETOW TEZ NIBY MOZE BYC REDUXEM BO MOZE DAWAC CHOCIAZBY TEN STAN LADOWANIA NA ASYNC THUNKU...
 
   // SERWIS TRANSAKCJI MOZE BYC TEZ NA REDUX, BO MOZE POTEM PODRKESLAC BILETY KTORE OSTATNIO KUPIONO CHOCIAZBY
   reducers: {
-    addItem: (state, { payload }) => {
-      // Classic approach with use of return
-      const foundItemIndex = state.content.items.findIndex(
-        (item) => item.title === payload.title
-      );
-      if (foundItemIndex >= 0) {
-        const updatedItems = [...state.content.items];
-        updatedItems[foundItemIndex] = {
-          ...updatedItems[foundItemIndex],
-          stackCount: updatedItems[foundItemIndex].stackCount + 1,
-        };
-        return { ...state, content: { ...state.content, items: updatedItems } };
-      } else {
-        return {
-          ...state,
-          content: {
-            ...state.content,
-            items: [...state.content.items, payload],
-          },
-        };
-      }
-    },
-
     removeItem: (state, action) => {
-      // By immer lib with use of mutating
       const foundItem = state.content.items.find(
-        (item) => item.title === action.payload.title
+        (item) => item.id === action.payload.id
       );
       if (foundItem?.stackCount! > 1) {
         foundItem!.stackCount! -= 1;
       } else {
         state.content.items = state.content.items.filter(
-          (item) => item.title !== action.payload.title
+          (item) => item.id !== action.payload.id
         );
       }
     },
-
     removeStack: (state, action) => {
       console.log(state, action);
     },
   },
 
   extraReducers: (builder) => {
-    builder.addCase(fetchDeliveryCost.fulfilled, (state, action) => {
-      state.delivery.cost = action.payload.deliveryCost;
+    builder.addCase(fetchAddItem.fulfilled, (state, { payload }) => {
+      const foundAlreadyExisting = state.content.items.find(
+        ({ id }) => id === payload.addedItemId
+      );
+      if (foundAlreadyExisting) {
+        foundAlreadyExisting.stackCount += 1;
+      } else {
+        state.content.items.push({
+          title: payload.addedItemTitle,
+          id: payload.addedItemId,
+          stackCount: 1,
+        });
+      }
       state.delivery.isLoading = false;
+      state.content.isLoading = false;
+      state.delivery.cost = payload.deliveryCost;
     });
-    builder.addCase(fetchDeliveryCost.pending, (state) => {
+    builder.addCase(fetchAddItem.pending, (state, action) => {
       state.delivery.isLoading = true;
+      state.content.isLoading = true;
     });
-    builder.addCase(fetchDeliveryCost.rejected, (state) => {
-      // toast
+    builder.addCase(fetchAddItem.rejected, (state, action) => {
+      // toast error
     });
   },
 });
 
-export const { addItem, removeItem } = cartReducer.actions;
+export const { removeItem } = cartReducer.actions;
 export const reducer = cartReducer.reducer;

@@ -2,9 +2,9 @@
 
  <g>
   <title>Layer 1</title>
-  <path transform="rotate(-27 26.2566 26.5175)" id="svg_1" stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" stroke="#292D32" d="m31.2516,18.51755l-10.00002,0c-3.83,0 -4.9,0.92 -4.99,4.5c1.93,0 3.49,1.57 3.49,3.5c0,1.93 -1.56,3.49 -3.49,3.5c0.09,3.58 1.16,4.5 4.99,4.5l10.00002,0c4,0 5,-1 5,-5l0,-6c0,-4 -1,-5 -5,-5z"/>
-  <path transform="rotate(-24 22.4833 22.397)" id="svg_2" stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" stroke="#292D32" d="m22.48325,20.64702l0,3.5"/>
-  <path transform="rotate(-27 27.4236 32.512)" id="svg_3" stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" stroke="#292D32" d="m27.42363,30.76201l0,3.5"/>
-  <path transform="rotate(-10 30.1142 24.2256)" id="svg_4" stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" stroke="#292D32" d="m30.47421,21.54763l0.62,1.24999c0.06,0.12 0.18,0.21 0.31,0.23l1.38,0.2c0.34,0.05 0.48,0.47 0.23,0.71l-1,0.97c-0.1,0.09 -0.14,0.23 -0.12,0.37l0.24,1.37c0.06,0.34 -0.3,0.6 -0.6,0.44l-1.23,-0.65c-0.12,-0.06 -0.27,-0.06 -0.39,0l-1.23,0.65c-0.31,0.16 -0.66,-0.1 -0.6,-0.44l0.24,-1.37c0.02,-0.14 -0.02,-0.27 -0.12,-0.37l-0.99,-0.97c-0.25,-0.24 -0.11,-0.66 0.23,-0.71l1.38,-0.2c0.14,-0.02 0.25,-0.1 0.31,-0.23l0.61,-1.24999c0.14,-0.31 0.58,-0.31 0.73,0z"/>
+  <path transform="rotate(-27 26.2566 26.5175)" id="svg_1" strokeLinejoin="round" strokeLinecap="round" stroke-width="1.5" stroke="#292D32" d="m31.2516,18.51755l-10.00002,0c-3.83,0 -4.9,0.92 -4.99,4.5c1.93,0 3.49,1.57 3.49,3.5c0,1.93 -1.56,3.49 -3.49,3.5c0.09,3.58 1.16,4.5 4.99,4.5l10.00002,0c4,0 5,-1 5,-5l0,-6c0,-4 -1,-5 -5,-5z"/>
+  <path transform="rotate(-24 22.4833 22.397)" id="svg_2" strokeLinejoin="round" strokeLinecap="round" stroke-width="1.5" stroke="#292D32" d="m22.48325,20.64702l0,3.5"/>
+  <path transform="rotate(-27 27.4236 32.512)" id="svg_3" strokeLinejoin="round" strokeLinecap="round" stroke-width="1.5" stroke="#292D32" d="m27.42363,30.76201l0,3.5"/>
+  <path transform="rotate(-10 30.1142 24.2256)" id="svg_4" strokeLinejoin="round" strokeLinecap="round" stroke-width="1.5" stroke="#292D32" d="m30.47421,21.54763l0.62,1.24999c0.06,0.12 0.18,0.21 0.31,0.23l1.38,0.2c0.34,0.05 0.48,0.47 0.23,0.71l-1,0.97c-0.1,0.09 -0.14,0.23 -0.12,0.37l0.24,1.37c0.06,0.34 -0.3,0.6 -0.6,0.44l-1.23,-0.65c-0.12,-0.06 -0.27,-0.06 -0.39,0l-1.23,0.65c-0.31,0.16 -0.66,-0.1 -0.6,-0.44l0.24,-1.37c0.02,-0.14 -0.02,-0.27 -0.12,-0.37l-0.99,-0.97c-0.25,-0.24 -0.11,-0.66 0.23,-0.71l1.38,-0.2c0.14,-0.02 0.25,-0.1 0.31,-0.23l0.61,-1.24999c0.14,-0.31 0.58,-0.31 0.73,0z"/>
  </g>
 </svg>

@@ -1,3 +1,5 @@
+import { CartStateI } from "../../reducers/types";
+
 export interface TicketI {
   id: number;
   title: string;
@@ -15,3 +17,23 @@ enum TicketType {
   THEATER = "THEATER",
   CONFERENCE = "CONFERENCE",
 }
+
+export interface CartVerificationRequestTO extends CartStateI {
+  addedItemId: number;
+}
+
+export interface CartVerificationResponseTO {
+  deliveryCost: number;
+  total: number;
+  addedItemTitle: string;
+  addedItemId: number;
+}
+
+export interface FilteredTicketsRequestTO
+  extends Omit<TicketI, "id" | "price" | "event" | "quantity" | "type"> {
+  minPrice: number;
+  maxPrice: number;
+  sortOrder: string;
+}
+
+export interface FilteredTicketsResponseTO extends Array<TicketI> {}

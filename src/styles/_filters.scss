@@ -6,6 +6,7 @@
   padding-left: $spacing * 2;
   border-radius: 0 2 * $spacing 2 * $spacing 2 * $spacing;
   text-align: center;
+  box-shadow: $black-reduced 8px 8px;
 
   svg {
     max-height: 25px;

@@ -2,17 +2,18 @@ import { useAppDispatch } from "../../../../store/hooks";
 import { TicketI } from "../../../../services/ticketService/types";
 import { CartPlusIcon } from "../../../../assets/icons/CartPlusIcon";
 import { InfoIcon } from "../../../../assets/icons/InfoIcon";
-import { addItem } from "../../../../reducers/cart";
+import { fetchAddItem } from "../../../../reducers/cart";
 
-interface TicketCardI extends Partial<TicketI> {}
+interface TicketCardI {
+  ticket: TicketI;
+}
 
-export const TicketCard = (ticket: TicketCardI) => {
+export const TicketCard = ({ ticket }: TicketCardI) => {
   const { title, price, date, id } = ticket;
   const dispatch = useAppDispatch();
 
   const handleAddToCart = () => {
-    console.log(id);
-    dispatch(addItem({ title, stackCount: 1 }));
+    dispatch(fetchAddItem(id));
   };
 
   return (

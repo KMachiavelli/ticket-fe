@@ -1,10 +1,11 @@
-import { ReactElement } from "react";
 import { TicketI } from "../services/ticketService/types";
+import { UserI } from "../services/userService/types";
 
-export interface CartI {
+export interface CartStateI {
   content: {
-    items: Array<Pick<TicketI, "title"> & { stackCount: number }>;
+    items: Array<Pick<TicketI, "title" | "id"> & { stackCount: number }>;
     total: number;
+    isLoading: boolean;
   };
   delivery: {
     cost: number;
@@ -12,4 +13,12 @@ export interface CartI {
   };
 }
 
-export interface AuthI {}
+export interface TicketsStateI {
+  tickets: Array<TicketI>;
+  isLoading: boolean;
+}
+
+export interface AuthStateI {
+  user: Pick<UserI, "accessToken" | "username"> | null;
+  isLoggedIn: boolean;
+}

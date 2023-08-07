@@ -1,5 +1,5 @@
-import { ENDPOINTS } from "../xhr/conf";
-import { fetchData } from "../xhr/fetchData";
+import { ENDPOINTS } from "../../xhr/conf";
+import { fetchData } from "../../xhr/fetchData";
 
 const { get } = fetchData();
 

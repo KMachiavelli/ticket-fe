@@ -84,6 +84,7 @@
     border-radius: $spacing * 2 0 $spacing $spacing * 2;
     top: 200%;
     right: 0;
+    box-shadow: $black-reduced 8px 8px;
 
     h2 {
       white-space: nowrap;
@@ -135,6 +136,10 @@
       display: inline;
     }
   }
+  &__cart-spinner {
+    margin: $spacing;
+    align-self: flex-end;
+  }
 
   &__cart-item {
     @include centered-flex();
@@ -156,6 +161,7 @@
     width: 100%;
     transform: translate(0, 100%);
     transform-origin: top;
+    box-shadow: $black 8px 8px;
 
     &--shown {
       @extend .nav__chimney;

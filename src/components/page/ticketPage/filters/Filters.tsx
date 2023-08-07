@@ -1,25 +1,42 @@
-import { FiltersIcon } from "../../../../assets/icons/FiltersIcon";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import {
-  Controller,
-  FieldValues,
-  SubmitHandler,
-  useForm,
-} from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { FormInputI, FormInputs } from "./types";
+import { useAppDispatch } from "../../../../store/hooks";
+import { fetchGetTickets } from "../../../../reducers/tickets";
+import { useEffect } from "react";
+import {
+  DEFAULT_INPUTS_VALUES,
+  DISTRIBUTOR_OPTIONS,
+  SORT_OPTIONS,
+} from "./const";
 
 export const Filters = () => {
-  const { register, handleSubmit, control, formState, watch } =
-    useForm<FormInputI>({ defaultValues: { priceRange: [50, 250] } });
+  const dispatch = useAppDispatch();
+  const { register, handleSubmit, watch, setValue, getValues, reset } =
+    useForm<FormInputI>({ defaultValues: DEFAULT_INPUTS_VALUES });
 
-  const handleApplyFiltering: SubmitHandler<FormInputI> = (data) => {
-    console.log(data);
-    console.log(formState);
-    console.log(watch()[FormInputs.PRICE_RANGE]);
+  useEffect(() => {
+    dispatch(fetchGetTickets(getValues()));
+  }, []);
+
+  const handleSliderChange = (vals: number[] | number) => {
+    if (Array.isArray(vals)) {
+      const [minPrice, maxPrice] = vals;
+      setValue(FormInputs.MIN_PRICE, minPrice);
+      setValue(FormInputs.MAX_PRICE, maxPrice);
+    }
   };
 
-  const sortByOptions = ["title", "price"];
+  const handleApplyFiltering: SubmitHandler<FormInputI> = (data) => {
+    dispatch(fetchGetTickets(data));
+  };
+
+  const handleResetFiltering = () => {
+    reset(DEFAULT_INPUTS_VALUES);
+    console.log(getValues());
+    dispatch(fetchGetTickets(getValues()));
+  };
 
   return (
     <div className="filters">
@@ -42,43 +59,41 @@ export const Filters = () => {
         <label>
           Distributor
           <select {...register(FormInputs.DISTRIBUTOR)} defaultValue="none">
-            {[0].map(() => (
-              <option>none</option>
+            {DISTRIBUTOR_OPTIONS.map(([label, option]) => (
+              <option label={label}>{option}</option>
             ))}
           </select>
         </label>
         <label>
           <div className="filters__price-range">
             Price
-            <p>{watch()[FormInputs.PRICE_RANGE][0]}</p>-
-            <p>{watch()[FormInputs.PRICE_RANGE][1]}</p>$
+            <p>{watch()[FormInputs.MIN_PRICE]}</p>-
+            <p>{watch()[FormInputs.MAX_PRICE]}</p>$
           </div>
-          <Controller
-            name={FormInputs.PRICE_RANGE}
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <Slider
-                className="filters__slider"
-                min={10}
-                max={500}
-                range
-                onChange={onChange}
-                value={value}
-              />
-            )}
+          <Slider
+            className="filters__slider"
+            min={10}
+            max={500}
+            range
+            onChange={handleSliderChange}
+            value={[getValues().minPrice, getValues().maxPrice]}
           />
         </label>
         <div className="filters__buttons">
           <button type="submit">Apply</button>
-          <button type="button" className="btn--secondary">
+          <button
+            onClick={handleResetFiltering}
+            type="button"
+            className="btn--secondary"
+          >
             Reset
           </button>
         </div>
         <label>
           Sort by
-          <select>
-            {sortByOptions.map((option) => (
-              <option>{option.toLocaleUpperCase()}</option>
+          <select {...register(FormInputs.SORT_ORDER)}>
+            {SORT_OPTIONS.map(([_, option]) => (
+              <option>{option}</option>
             ))}
           </select>
         </label>

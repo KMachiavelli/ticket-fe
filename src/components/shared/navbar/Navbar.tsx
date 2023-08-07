@@ -5,31 +5,33 @@ import { PagePaths } from "../../../routing/types";
 import { CartIcon } from "../../../assets/icons/CartIcon";
 import { LogoIcon } from "../../../assets/icons/LogoIcon";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
 import { DoubleButton } from "../doubleButton/DoubleButton";
 import { TrashIcon } from "../../../assets/icons/TrashIcon";
 import { useAppDispatch } from "../../../store/hooks";
-import { addItem, fetchDeliveryCost, removeItem } from "../../../reducers/cart";
+import { fetchAddItem, removeItem } from "../../../reducers/cart";
+import { Spinner } from "../spinner/Spinner";
+import { SpinnerVariant } from "../spinner/types";
+import { CartStateI } from "../../../reducers/types";
+import { useState } from "react";
 
 export const Navbar = () => {
-  const { items, deliveryCost } = useSelector<any, any>((state) => state.cart);
+  const {
+    content: { items, total },
+    delivery,
+  } = useSelector<any, CartStateI>((state) => state.cart);
   const dispatch = useAppDispatch();
   const [isDropdownCartOpen, setIsDropdownCartOpen] = useState(false);
-
-  useEffect(() => {
-    dispatch(fetchDeliveryCost());
-  }, [isDropdownCartOpen]);
 
   const handleOpenDropdown = () => {
     setIsDropdownCartOpen((isOpen) => !isOpen);
   };
 
-  const handleIncrementItemInCart = (title: string) => {
-    dispatch(addItem({ title, stackCount: 1 }));
+  const handleIncrementItemInCart = (id: number) => () => {
+    dispatch(fetchAddItem(id));
   };
 
-  const handleDecrementItemInCart = (title: string) => {
-    dispatch(removeItem({ title }));
+  const handleDecrementItemInCart = (id: number) => () => {
+    dispatch(removeItem(id));
   };
 
   return (
@@ -63,13 +65,13 @@ export const Navbar = () => {
           >
             <h2>Your cart</h2>
             <div className="nav__cart-display">
-              {items.map(({ title, stackCount }: any) => (
+              {items.map(({ title, stackCount, id }: any) => (
                 <div className="nav__cart-item">
                   <p>{title}</p>
                   <p>x {stackCount}</p>
                   <DoubleButton
-                    handleMinusClick={() => handleDecrementItemInCart(title)}
-                    handlePlusClick={() => handleIncrementItemInCart(title)}
+                    handleMinusClick={handleDecrementItemInCart(id)}
+                    handlePlusClick={handleIncrementItemInCart(id)}
                   />
                   <button className="btn--content nav__trash-button">
                     <TrashIcon />
@@ -79,8 +81,16 @@ export const Navbar = () => {
               <div className="nav__summary">
                 <h4>Total</h4>
                 <hr />
-                <h3>{2137} $</h3>
-                <p>delivery {deliveryCost} $</p>
+                <Spinner
+                  variant={SpinnerVariant.LIGHT}
+                  isLoading={delivery.isLoading}
+                  className="nav__cart-spinner"
+                >
+                  <>
+                    <h3>{total} $</h3>
+                    <p>delivery {delivery.cost} $</p>
+                  </>
+                </Spinner>
               </div>
             </div>
           </div>

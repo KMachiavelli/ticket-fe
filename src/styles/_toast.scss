@@ -1,0 +1,16 @@
+@import "react-toastify/dist/ReactToastify.css";
+
+.Toastify__toast-container {
+  & .Toastify__toast {
+    background-color: $red-lighter;
+    color: $white;
+  }
+
+  & .Toastify__close-button {
+    &:hover {
+      background: none;
+      border: $red-darker;
+      outline: $red-darker;
+    }
+  }
+}

@@ -4,6 +4,8 @@ import { Routing } from "./routing/Routing";
 import "./style.scss";
 import { Provider } from "react-redux";
 import store from "./store/store";
+import { ToastContainer } from "react-toastify";
+import { Toast } from "./components/shared/toast/Toast";
 
 function App() {
   return (
@@ -14,6 +16,7 @@ function App() {
             <Routing />
           </main>
         </Layout>
+        <Toast />
       </BrowserRouter>
     </Provider>
   );
